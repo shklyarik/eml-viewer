@@ -1,7 +1,7 @@
 {
   "name": "eml-viewer",
   "desktopName": "eml-viewer.desktop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A small, secure desktop viewer for EML email files.",
   "main": "./out/main/index.js",
   "author": "eml-viewer contributors",
@@ -15,7 +15,7 @@
     "generate:example": "node scripts/generate-example-eml.mjs",
     "check": "tsc --noEmit",
     "build": "npm run check && electron-vite build",
-    "package": "npm run build && electron-builder --linux AppImage",
+    "package": "npm run build && electron-builder --linux AppImage --publish never",
     "release": "npm run build && electron-builder --linux AppImage --publish always"
   },
   "dependencies": {
