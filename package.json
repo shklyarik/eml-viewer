@@ -1,0 +1,90 @@
+{
+  "name": "eml-viewer",
+  "desktopName": "eml-viewer.desktop",
+  "version": "0.1.0",
+  "description": "A small, secure desktop viewer for EML email files.",
+  "main": "./out/main/index.js",
+  "author": "eml-viewer contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shklyarik/eml-viewer.git"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "generate:example": "node scripts/generate-example-eml.mjs",
+    "check": "tsc --noEmit",
+    "build": "npm run check && electron-vite build",
+    "package": "npm run build && electron-builder --linux AppImage",
+    "release": "npm run build && electron-builder --linux AppImage --publish always"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^4.10.38",
+    "postal-mime": "^2.4.3",
+    "sanitize-html": "^2.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/sanitize-html": "^2.16.0",
+    "electron": "^36.1.0",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^3.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.1.0"
+  },
+  "build": {
+    "appId": "io.github.shklyarik.emlviewer",
+    "productName": "EML Viewer",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icons/256x256.png",
+        "to": "icon.png"
+      }
+    ],
+    "linux": {
+      "executableName": "eml-viewer",
+      "icon": "build/icons",
+      "syncDesktopName": true,
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Utility",
+      "artifactName": "eml-viewer-${version}-${arch}.${ext}",
+      "desktop": {
+        "entry": {
+          "Name": "EML Viewer",
+          "Comment": "Open and preview EML email files",
+          "MimeType": "message/rfc822;"
+        }
+      }
+    },
+    "fileAssociations": [
+      {
+        "ext": "eml",
+        "name": "Email message",
+        "description": "EML email message",
+        "mimeType": "message/rfc822",
+        "role": "Viewer"
+      }
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "shklyarik",
+      "repo": "eml-viewer",
+      "releaseType": "release"
+    }
+  }
+}
