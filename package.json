@@ -1,7 +1,7 @@
 {
   "name": "eml-viewer",
   "desktopName": "eml-viewer.desktop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A small, secure desktop viewer for EML email files.",
   "main": "./out/main/index.js",
   "author": "eml-viewer contributors",
@@ -27,7 +27,8 @@
     "@types/node": "^22.15.3",
     "@types/sanitize-html": "^2.16.0",
     "electron": "^36.1.0",
-    "electron-builder": "^26.0.12",
+    "electron-builder": "26.15.3",
+    "electron-builder-squirrel-windows": "26.15.3",
     "electron-vite": "^3.1.0",
     "typescript": "^5.8.3",
     "vite": "^6.1.0"
