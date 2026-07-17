@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain, shell } from "electron";
+import { app, BrowserWindow, dialog, ipcMain, Menu, shell } from "electron";
 import { existsSync } from "node:fs";
 import { extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -55,6 +55,16 @@ function createWindow(): void {
       void shell.openExternal(url);
     }
     return { action: "deny" };
+  });
+
+  mainWindow.webContents.on("context-menu", (_event, parameters) => {
+    if (!parameters.editFlags.canCopy) {
+      return;
+    }
+
+    Menu.buildFromTemplate([{ label: "Copy", role: "copy" }]).popup({
+      window: mainWindow ?? undefined
+    });
   });
 
   if (process.env.ELECTRON_RENDERER_URL) {

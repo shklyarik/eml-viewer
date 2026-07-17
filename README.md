@@ -1,7 +1,10 @@
 # EML Viewer
 
 A small desktop application for opening and previewing `.eml` email files. It is
-built with Electron and TypeScript and distributed for Linux as an AppImage.
+built with Electron and TypeScript and distributed as a Linux AppImage and a
+Windows installer.
+
+![EML Viewer demonstration](demo.gif)
 
 ## Features
 
@@ -12,6 +15,7 @@ built with Electron and TypeScript and distributed for Linux as an AppImage.
 - Use the packaged PNG icon for the application window and desktop integration.
 - Preview the HTML or plain-text email body.
 - Inspect the original raw email headers and decoded HTML source.
+- Copy selected text from the right-click context menu.
 - View sender, recipients, subject, date, and filename.
 - Preview common raster images, MP4 videos, TXT files, and PDFs rendered with PDF.js.
 - Save email attachments.
@@ -64,7 +68,7 @@ npm run check
 npm run build
 ```
 
-## Build an AppImage
+## Build desktop packages
 
 Build the Linux AppImage locally:
 
@@ -73,6 +77,14 @@ npm run package
 ```
 
 The output is written to `dist/eml-viewer-<version>-x86_64.AppImage`.
+
+Build the Windows x64 NSIS installer on Windows:
+
+```bash
+npm run package:windows
+```
+
+The output is written to `dist/eml-viewer-setup-<version>-x64.exe`.
 
 Make the file executable and open an email:
 
@@ -96,17 +108,18 @@ eml-viewer message.eml
 
 ## Releases
 
-The GitHub Actions workflow builds an AppImage when a tag starting with `v` is
-pushed. The tag should match the version in `package.json`.
+The GitHub Actions workflow builds a Linux AppImage and a Windows x64 installer
+when a tag starting with `v` is pushed. The tag should match the version in
+`package.json`.
 
 ```bash
 npm version patch
 git push origin main --follow-tags
 ```
 
-The workflow creates a GitHub Release, generates release notes, and attaches the
-AppImage. It can also be started manually from the Actions tab; manual builds are
-stored as workflow artifacts instead of GitHub Releases.
+The workflow creates a GitHub Release, generates release notes, and attaches
+both packages. It can also be started manually from the Actions tab; manual
+builds are stored as workflow artifacts instead of GitHub Releases.
 
 ## Security
 

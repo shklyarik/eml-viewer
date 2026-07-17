@@ -1,7 +1,7 @@
 {
   "name": "eml-viewer",
   "desktopName": "eml-viewer.desktop",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A small, secure desktop viewer for EML email files.",
   "main": "./out/main/index.js",
   "author": "eml-viewer contributors",
@@ -15,8 +15,9 @@
     "generate:example": "node scripts/generate-example-eml.mjs",
     "check": "tsc --noEmit",
     "build": "npm run check && electron-vite build",
-    "package": "npm run build && electron-builder --linux AppImage --publish never",
-    "release": "npm run build && electron-builder --linux AppImage --publish always"
+    "package": "npm run package:linux",
+    "package:linux": "npm run build && electron-builder --linux AppImage --publish never",
+    "package:windows": "npm run build && electron-builder --win nsis --x64 --publish never"
   },
   "dependencies": {
     "pdfjs-dist": "^4.10.38",
@@ -71,6 +72,25 @@
           "MimeType": "message/rfc822;"
         }
       }
+    },
+    "win": {
+      "icon": "build/icon.svg",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "eml-viewer-setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     },
     "fileAssociations": [
       {
